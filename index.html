@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean B. Templaza | Tech Specialist</title>
 
-  <!-- Google Fonts -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -172,7 +172,7 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-3px); }
 
-    /* Profile Card */
+  
     .profile-scanner-wrap {
       position: relative;
       display: flex;
@@ -222,7 +222,7 @@
       object-fit: cover;
     }
 
-    /* UPDATED HUD INFO SECTIONS */
+    
     .hud-info {
       position: relative;
       z-index: 1;
@@ -244,7 +244,7 @@
       cursor: default;
     }
 
-    /* HOVER EFFECT SA INFO CARDS */
+   
     .hud-item:hover {
       background: rgba(168, 85, 247, 0.15); /* Mo-siga ug purple/pink */
       border-color: var(--accent);
@@ -268,10 +268,10 @@
     }
 
     .hud-item:hover p {
-      color: #fff; /* Mo-puti ang text inig hover para mas klaro */
+      color: #fff; 
     }
 
-    /* Sections */
+   
     section { padding: 90px 0; }
     
     .sec-head { margin-bottom: 40px; }
@@ -282,7 +282,7 @@
       letter-spacing: -1px;
     }
 
-    /* Grid & Modal */
+    
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
@@ -348,7 +348,7 @@
       line-height: 1.7;
     }
 
-    /* CLICKABLE CONTACT TILES */
+   
     .contact-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -388,7 +388,7 @@
       font-size: 20px;
     }
 
-    /* LIGHTBOX MODAL */
+   
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -466,10 +466,10 @@
 </head>
 <body>
 
-  <!-- Matrix Canvas Background -->
+  
   <canvas id="matrix-bg"></canvas>
 
-  <!-- Navbar -->
+ 
   <nav>
     <div class="logo">
       <span class="logo-dot"></span> JEAN.TEMPLAZA
@@ -482,7 +482,7 @@
   </nav>
 
   <div class="container">
-    <!-- Hero Section -->
+    
     <section class="hero" id="about">
       <div>
         <h1>JEAN B. <br><span class="holo-text">TEMPLAZA</span></h1>
@@ -504,7 +504,7 @@
         </div>
       </div>
 
-      <!-- Holographic Profile Scanner Card -->
+     
       <div class="profile-scanner-wrap">
         <div class="scanner-card">
           <div class="radar-ring"></div>
@@ -512,7 +512,7 @@
             <img src="assets/assets/jean-profile.jpg" alt="Jean Templaza" />
           </div>
           
-          <!-- UPDATED HUD INFO CARDS -->
+        
           <div class="hud-info">
             <div class="hud-item">
               <h5>Status</h5>
@@ -535,7 +535,7 @@
       </div>
     </section>
 
-    <!-- Milestones -->
+   
     <section id="milestones">
       <div class="sec-head">
         <h2>FEATURED <span class="holo-text">MILESTONES</span></h2>
@@ -563,14 +563,14 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    
     <section id="connect">
       <div class="sec-head">
         <h2>GET IN <span class="holo-text">TOUCH</span></h2>
       </div>
 
       <div class="contact-row">
-        <!-- DIRECT TO GMAIL WEB APP (mail.google.com) -->
+       
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=templaza.jean@dnsc.edu.ph" target="_blank" class="contact-tile">
           <div class="icon-wrap">📧</div>
           <div>
@@ -579,7 +579,7 @@
           </div>
         </a>
 
-        <!-- Direct Phone Link -->
+      
         <a href="tel:09350863255" class="contact-tile">
           <div class="icon-wrap">📱</div>
           <div>
@@ -588,7 +588,7 @@
           </div>
         </a>
 
-        <!-- Direct Facebook Link -->
+        
         <a href="https://www.facebook.com/share/1D6x1czyyR/" target="_blank" class="contact-tile">
           <div class="icon-wrap">🌐</div>
           <div>
@@ -600,7 +600,7 @@
     </section>
   </div>
 
-  <!-- LIGHTBOX MODAL -->
+  
   <div class="modal-overlay" id="imageModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeModal()">×</button>
@@ -615,7 +615,7 @@
   </footer>
 
   <script>
-    // Matrix Animated Canvas
+    
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -650,7 +650,7 @@
     }
     setInterval(drawMatrix, 40);
 
-    // Modal
+   
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
