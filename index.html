@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean B. Templaza | Tech Specialist</title>
 
-  <!-- Google Fonts: Space Grotesk & Outfit -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -35,7 +35,6 @@
       position: relative;
     }
 
-    /* Animated Matrix Canvas Background */
     #matrix-bg {
       position: fixed;
       top: 0;
@@ -49,7 +48,6 @@
 
     .container { width: min(1180px, 92%); margin: auto; }
 
-    /* Futuristic HUD Navbar */
     nav {
       position: sticky;
       top: 20px;
@@ -62,7 +60,7 @@
       justify-content: space-between;
       border: 1px solid var(--glass-border);
       border-radius: 99px;
-      background: rgba(10, 5, 28, 0.7);
+      background: rgba(10, 5, 28, 0.75);
       backdrop-filter: blur(20px);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(168, 85, 247, 0.1);
     }
@@ -91,7 +89,7 @@
     }
     .nav-links a:hover { color: #fff; text-shadow: 0 0 10px var(--glow); }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
       min-height: 85vh;
       display: grid;
@@ -119,7 +117,7 @@
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(40px, 5.5vw, 76px);
+      font-size: clamp(40px, 5.5vw, 74px);
       line-height: 0.98;
       font-weight: 700;
       margin-bottom: 24px;
@@ -135,10 +133,10 @@
 
     .hero-p {
       color: var(--text-dim);
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.8;
-      margin-bottom: 36px;
-      max-width: 520px;
+      margin-bottom: 30px;
+      max-width: 560px;
     }
 
     .tech-stack-pills {
@@ -173,6 +171,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .btn-main {
@@ -189,7 +188,7 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-3px); }
 
-    /* Interactive Profile Scanner Box */
+    /* Profile Card */
     .profile-scanner-wrap {
       position: relative;
       display: flex;
@@ -209,7 +208,6 @@
       overflow: hidden;
     }
 
-    /* Radar / Scanner Overlay Ring */
     .radar-ring {
       position: absolute;
       top: -50%;
@@ -266,7 +264,7 @@
       color: #38bdf8;
     }
 
-    /* Section Headers */
+    /* Sections */
     section { padding: 90px 0; }
     
     .sec-head { margin-bottom: 40px; }
@@ -277,7 +275,7 @@
       letter-spacing: -1px;
     }
 
-    /* Grid & Interactive Lightbox Cards */
+    /* Grid & Modal */
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
@@ -343,7 +341,7 @@
       line-height: 1.7;
     }
 
-    /* Contact Links */
+    /* FIX FOR CLICKABLE CONTACT TILES */
     .contact-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -361,12 +359,14 @@
       align-items: center;
       gap: 18px;
       transition: 0.3s;
+      cursor: pointer;
     }
 
     .contact-tile:hover {
       border-color: var(--cyan);
-      background: rgba(6, 182, 212, 0.08);
+      background: rgba(6, 182, 212, 0.12);
       transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
     }
 
     .icon-wrap {
@@ -381,7 +381,7 @@
       font-size: 20px;
     }
 
-    /* UNIQUE FEATURE: Lightbox / Popup Modal */
+    /* LIGHTBOX MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -459,7 +459,7 @@
 </head>
 <body>
 
-  <!-- Matrix Background Canvas -->
+  <!-- Matrix Canvas Background -->
   <canvas id="matrix-bg"></canvas>
 
   <!-- Navbar -->
@@ -478,17 +478,19 @@
     <!-- Hero Section -->
     <section class="hero" id="about">
       <div>
-        <div class="badge-tag">⚡ DIGITAL INNOVATOR & STRATEGIST</div>
+        <div class="badge-tag">🏀 ATHLETE & IS STRATEGIST ⚡</div>
         <h1>JEAN B. <br><span class="holo-text">TEMPLAZA</span></h1>
+        
+        <!-- Expanded & Connected Narrative -->
         <p class="hero-p">
-          Creating next-generation Information Systems solutions. Blending strategic logic, user experience design, and modern digital architecture.
+          Crafting next-generation Information Systems solutions at Davao del Norte State College (DNSC). Combining the <strong>tactical agility, focus, and teamwork</strong> honed on the sports court with <strong>strategic logic, user experience design, and modern digital architecture</strong> under the <strong>Institute of Computing (IC)</strong>.
         </p>
 
         <div class="tech-stack-pills">
-          <span class="pill">🌐 Web Development</span>
-          <span class="pill">📊 Systems Design</span>
-          <span class="pill">⚡ Tech Strategy</span>
-          <span class="pill">💡 Innovation</span>
+          <span class="pill">🎓 BS Information Systems</span>
+          <span class="pill">🏀 Team Sports / Basketball</span>
+          <span class="pill">🌐 Web Systems Design</span>
+          <span class="pill">💡 Tech Strategy</span>
         </div>
 
         <div class="btn-group">
@@ -506,19 +508,19 @@
           </div>
           <div class="hud-info">
             <div class="hud-item">
-              <h5>Department</h5>
+              <h5>Institute</h5>
               <p>Institute of Computing</p>
             </div>
             <div class="hud-item">
               <h5>Program</h5>
-              <p>Information Systems</p>
+              <p>BS Information Systems</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Milestones / Project Cards (With Interactive Click-to-Expand Feature) -->
+    <!-- Milestones -->
     <section id="milestones">
       <div class="sec-head">
         <h2>FEATURED <span class="holo-text">MILESTONES</span></h2>
@@ -553,22 +555,25 @@
       </div>
 
       <div class="contact-row">
+        <!-- Direct Working Email Link -->
         <a href="mailto:templaza.jean@dnsc.edu.ph" class="contact-tile">
           <div class="icon-wrap">📧</div>
           <div>
-            <div style="font-size:11px; color:var(--text-dim);">EMAIL</div>
+            <div style="font-size:11px; color:var(--text-dim);">EMAIL ME</div>
             <div style="font-weight:700;">templaza.jean@dnsc.edu.ph</div>
           </div>
         </a>
 
+        <!-- Direct Working Phone Link -->
         <a href="tel:09350863255" class="contact-tile">
           <div class="icon-wrap">📱</div>
           <div>
-            <div style="font-size:11px; color:var(--text-dim);">PHONE</div>
+            <div style="font-size:11px; color:var(--text-dim);">CALL / TEXT</div>
             <div style="font-weight:700;">09350863255</div>
           </div>
         </a>
 
+        <!-- Direct Working Facebook Link -->
         <a href="https://www.facebook.com/share/1D6x1czyyR/" target="_blank" class="contact-tile">
           <div class="icon-wrap">🌐</div>
           <div>
@@ -580,7 +585,7 @@
     </section>
   </div>
 
-  <!-- UNIQUE LIGHTBOX MODAL -->
+  <!-- LIGHTBOX MODAL -->
   <div class="modal-overlay" id="imageModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeModal()">×</button>
@@ -591,12 +596,11 @@
   </div>
 
   <footer>
-    <p>&copy; 2026 Jean B. Templaza. Crafted with Matrix HUD Glass Architecture.</p>
+    <p>&copy; 2026 Jean B. Templaza. Institute of Computing (IC) - DNSC.</p>
   </footer>
 
-  <!-- Matrix Canvas & Lightbox Script -->
   <script>
-    // Matrix Animated Background
+    // Matrix Animated Canvas
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -631,7 +635,7 @@
     }
     setInterval(drawMatrix, 40);
 
-    // Lightbox Modal Script
+    // Modal
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
