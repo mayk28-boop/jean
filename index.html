@@ -96,7 +96,7 @@
       position: fixed;
       inset: 0;
       z-index: 99999;
-      background: rgba(3, 0, 20, 0.92);
+      background: rgba(3, 0, 20, 0.96);
       backdrop-filter: blur(35px);
       -webkit-backdrop-filter: blur(35px);
       display: flex;
@@ -104,15 +104,14 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
-      will-change: opacity, transform;
-      transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+      will-change: opacity;
+      transition: opacity 0.5s ease, visibility 0.5s;
     }
 
     .loader-screen.fade-out {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: scale(1.05);
     }
 
     .soccer-container {
@@ -158,9 +157,9 @@
 
     .loader-text {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       text-transform: uppercase;
       background: linear-gradient(90deg, var(--cyan), var(--accent), var(--pink));
       background-size: 200% auto;
@@ -170,23 +169,13 @@
     }
 
     @keyframes hyperBounce {
-      0% {
-        transform: translate3d(0, 10px, 0) scale3d(1.25, 0.75, 1) rotate(0deg);
-      }
-      100% {
-        transform: translate3d(0, -75px, 0) scale3d(0.9, 1.1, 1) rotate(280deg);
-      }
+      0% { transform: translate3d(0, 10px, 0) scale3d(1.25, 0.75, 1) rotate(0deg); }
+      100% { transform: translate3d(0, -75px, 0) scale3d(0.9, 1.1, 1) rotate(280deg); }
     }
 
     @keyframes hyperShadow {
-      0% {
-        transform: scale3d(1.2, 1.2, 1);
-        opacity: 0.9;
-      }
-      100% {
-        transform: scale3d(0.3, 0.3, 1);
-        opacity: 0.15;
-      }
+      0% { transform: scale3d(1.2, 1.2, 1); opacity: 0.9; }
+      100% { transform: scale3d(0.3, 0.3, 1); opacity: 0.15; }
     }
 
     @keyframes pulseGlow {
@@ -199,54 +188,28 @@
       100% { background-position: 200% center; }
     }
 
-    /* === ULTRA WAVE TRANSITION OVERLAY === */
-    .wave-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99998;
-      pointer-events: none;
-      opacity: 0;
-      overflow: hidden;
-    }
-
-    .wave-overlay.active {
-      opacity: 1;
-    }
-
-    .wave-overlay svg {
-      position: absolute;
-      width: 250%;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      fill: url(#wave-gradient);
-      will-change: transform;
-      transform: translate3d(-100%, 0, 0);
-    }
-
-    .wave-overlay.active svg {
-      animation: waveSweep 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    }
-
-    @keyframes waveSweep {
-      0% { transform: translate3d(-100%, 0, 0); }
-      50% { transform: translate3d(-20%, 0, 0); }
-      100% { transform: translate3d(100%, 0, 0); }
-    }
-
-    /* === MAIN CONTENT BLUR & ANIMATION === */
+    /* === NEON LIGHT FLICKER ON ANIMATION FOR MAIN CONTENT === */
     .app-content {
-      filter: blur(25px);
       opacity: 0;
-      transform: scale3d(0.95, 0.95, 1);
-      transition: filter 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-      will-change: filter, transform, opacity;
+      will-change: opacity, filter;
     }
 
-    body:not(.loading) .app-content {
-      filter: blur(0);
-      opacity: 1;
-      transform: scale3d(1, 1, 1);
+    /* Triggered after 100% load */
+    body.neon-flicker .app-content {
+      animation: neonTurnOn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes neonTurnOn {
+      0% { opacity: 0; filter: brightness(0.1) drop-shadow(0 0 0px transparent); }
+      10% { opacity: 0.8; filter: brightness(1.8) drop-shadow(0 0 30px var(--cyan)); }
+      15% { opacity: 0.1; filter: brightness(0.2); }
+      25% { opacity: 0.9; filter: brightness(2) drop-shadow(0 0 40px var(--pink)); }
+      30% { opacity: 0.2; filter: brightness(0.3); }
+      40% { opacity: 1; filter: brightness(1.6) drop-shadow(0 0 25px var(--accent)); }
+      50% { opacity: 0.4; filter: brightness(0.5); }
+      65% { opacity: 1; filter: brightness(1.3); }
+      80% { opacity: 0.8; filter: brightness(0.9); }
+      100% { opacity: 1; filter: brightness(1) drop-shadow(0 0 0px transparent); }
     }
 
     #matrix-bg {
@@ -465,7 +428,7 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translate3d(0, -4px, 0); }
 
-    /* === PROFILE HUD SCANNER (No 3D Tilt, pure long-press bounceback) === */
+    /* === PROFILE HUD SCANNER === */
     .profile-scanner-wrap { display: flex; justify-content: center; }
 
     .scanner-card {
@@ -485,7 +448,6 @@
       will-change: transform;
     }
 
-    /* Long Press Active State */
     .scanner-card.pressed {
       transform: scale3d(0.92, 0.92, 1) translate3d(0, 8px, 0);
       border-color: var(--cyan);
@@ -580,7 +542,7 @@
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
-    /* 3D Tilt Dynamic Cards (Retained ONLY for Achievements & Team Section) */
+    /* 3D Tilt Cards (Milestones & Achievements) */
     .holo-card {
       background: var(--card-bg);
       border: 1px solid var(--glass-border);
@@ -742,28 +704,14 @@
   <!-- DYNAMIC MOUSE SPOTLIGHT -->
   <div class="cursor-glow" id="cursorGlow"></div>
 
-  <!-- LOADER SCREEN -->
+  <!-- LOADER SCREEN WITH REALTIME 1-100% COUNTER -->
   <div class="loader-screen" id="loaderScreen">
     <div class="soccer-container">
       <div class="ball-glow-ring"></div>
       <div class="soccer-ball">⚽</div>
       <div class="ball-shadow"></div>
     </div>
-    <div class="loader-text">Loading System 100%...</div>
-  </div>
-
-  <!-- LIQUID WAVE TRANSITION -->
-  <div class="wave-overlay" id="waveOverlay">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#06b6d4" />
-          <stop offset="50%" stop-color="#a855f7" />
-          <stop offset="100%" stop-color="#ec4899" />
-        </linearGradient>
-      </defs>
-      <path d="M0,0 L0,150 C150,90 350,180 500,150 L500,0 Z"></path>
-    </svg>
+    <div class="loader-text">SYSTEM INITIALIZING <span id="loadCounter">1%</span></div>
   </div>
 
   <!-- MAIN APP CONTAINER -->
@@ -954,25 +902,31 @@
   </div>
 
   <script>
-    // 1. TIMED SMOOTH INTRO SEQUENCE
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const loader = document.getElementById('loaderScreen');
-        const wave = document.getElementById('waveOverlay');
+    // 1. REALTIME 1% TO 100% COUNTER & NEON FLICKER INTRO
+    const counterEl = document.getElementById('loadCounter');
+    const loaderScreen = document.getElementById('loaderScreen');
+    let currentPercent = 1;
 
-        loader.classList.add('fade-out');
-        wave.classList.add('active');
+    // Increments percentage fast until 100%
+    const loadInterval = setInterval(() => {
+      currentPercent += Math.floor(Math.random() * 4) + 1; // Smooth variable step
 
+      if (currentPercent >= 100) {
+        currentPercent = 100;
+        counterEl.innerText = "100%";
+        clearInterval(loadInterval);
+
+        // Wait a tiny bit then hide loader & trigger NEON LIGHT FLICKER ON
         setTimeout(() => {
+          loaderScreen.classList.add('fade-out');
           document.body.classList.remove('loading');
+          document.body.classList.add('neon-flicker'); // Starts neon lighting effect
         }, 300);
 
-        setTimeout(() => {
-          wave.classList.remove('active');
-        }, 1200);
-
-      }, 2500); // 2.5 seconds loading time
-    });
+      } else {
+        counterEl.innerText = currentPercent + "%";
+      }
+    }, 25); // Fast smooth counting
 
     // 2. MOUSE CURSOR SPOTLIGHT TRACKING
     const cursorGlow = document.getElementById('cursorGlow');
