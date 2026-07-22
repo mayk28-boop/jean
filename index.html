@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean B. Templaza | Tech Specialist</title>
 
-  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -172,7 +172,7 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-3px); }
 
-  
+    /* Profile Card */
     .profile-scanner-wrap {
       position: relative;
       display: flex;
@@ -222,7 +222,7 @@
       object-fit: cover;
     }
 
-    
+    /* HUD INFO CARDS */
     .hud-info {
       position: relative;
       z-index: 1;
@@ -239,16 +239,15 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 12px 14px;
-      border-radius: 16px; /* Rounded corners */
+      border-radius: 16px;
       transition: all 0.3s ease;
       cursor: default;
     }
 
-   
     .hud-item:hover {
-      background: rgba(168, 85, 247, 0.15); /* Mo-siga ug purple/pink */
+      background: rgba(168, 85, 247, 0.15);
       border-color: var(--accent);
-      transform: translateY(-4px); /* Mo-isa gamay */
+      transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(168, 85, 247, 0.25);
     }
 
@@ -268,13 +267,13 @@
     }
 
     .hud-item:hover p {
-      color: #fff; 
+      color: #fff;
     }
 
-   
-    section { padding: 90px 0; }
+    /* Sections */
+    section { padding: 60px 0; }
     
-    .sec-head { margin-bottom: 40px; }
+    .sec-head { margin-bottom: 30px; }
     .sec-head h2 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(30px, 4vw, 46px);
@@ -282,7 +281,47 @@
       letter-spacing: -1px;
     }
 
-    
+    /* WHAT I AM BUILDING & CREATIVE SECTIONS */
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 36px;
+      backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+    }
+
+    .creative-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .creative-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 20px;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .creative-item:hover {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: var(--cyan);
+      transform: translateY(-3px);
+    }
+
+    /* Grid & Modal */
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
@@ -348,7 +387,7 @@
       line-height: 1.7;
     }
 
-   
+    /* CLICKABLE CONTACT TILES */
     .contact-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -388,7 +427,7 @@
       font-size: 20px;
     }
 
-   
+    /* LIGHTBOX MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -466,29 +505,30 @@
 </head>
 <body>
 
-  
+  <!-- Matrix Canvas Background -->
   <canvas id="matrix-bg"></canvas>
 
- 
+  <!-- Navbar -->
   <nav>
     <div class="logo">
       <span class="logo-dot"></span> JEAN.TEMPLAZA
     </div>
     <div class="nav-links">
       <a href="#about">About</a>
+      <a href="#building">Building</a>
       <a href="#milestones">Milestones</a>
       <a href="#connect">Connect</a>
     </div>
   </nav>
 
   <div class="container">
-    
+    <!-- Hero Section -->
     <section class="hero" id="about">
       <div>
         <h1>JEAN B. <br><span class="holo-text">TEMPLAZA</span></h1>
         
         <p class="hero-p">
-          Crafting next-generation Information Systems solutions at Davao del Norte State College (DNSC). Combining tactical agility, focus, and strategic logic with user experience design and modern digital architecture under the <strong>Institute of Computing (IC)</strong>.
+          I am a Bachelor of Science in Information Systems student at Davao del Norte State College with a growing passion for technology and digital innovation. Committed to continuously improving my knowledge and skills in software development, information systems, and problem-solving while preparing for a successful career in the IT industry.
         </p>
 
         <div class="tech-stack-pills">
@@ -504,7 +544,7 @@
         </div>
       </div>
 
-     
+      <!-- Holographic Profile Scanner Card -->
       <div class="profile-scanner-wrap">
         <div class="scanner-card">
           <div class="radar-ring"></div>
@@ -512,7 +552,7 @@
             <img src="assets/assets/jean-profile.jpg" alt="Jean Templaza" />
           </div>
           
-        
+          <!-- HUD INFO CARDS -->
           <div class="hud-info">
             <div class="hud-item">
               <h5>Status</h5>
@@ -535,7 +575,42 @@
       </div>
     </section>
 
-   
+    <!-- What I Am Building & Creative Section -->
+    <section id="building">
+      <div class="feature-card">
+        <div class="sec-head" style="margin-bottom: 16px;">
+          <h2>WHAT I AM <span class="holo-text">BUILDING</span></h2>
+        </div>
+        <p style="color: var(--text-dim); font-size: 16px; line-height: 1.8;">
+          I am developing a strong foundation in web development, system analysis and design, database management, and software development through academic projects, hands-on practice, and continuous learning. My goal is to create practical, user-friendly, and efficient information systems that address real-world challenges and contribute to the advancement of organizations and communities.
+        </p>
+      </div>
+
+      <!-- Creative Skills Block -->
+      <div class="feature-card">
+        <div class="sec-head" style="margin-bottom: 10px;">
+          <h2>CREATIVE <span class="holo-text">FOCUS</span></h2>
+          <p style="color: var(--text-dim); font-size: 14px; margin-top: 4px;">Designing clearer presentations and user-facing project experiences.</p>
+        </div>
+
+        <div class="creative-grid">
+          <div class="creative-item">
+            <span style="font-size: 22px;">🎨</span>
+            <span style="font-weight: 700; font-size: 14px;">Interface design basics</span>
+          </div>
+          <div class="creative-item">
+            <span style="font-size: 22px;">📊</span>
+            <span style="font-weight: 700; font-size: 14px;">Presentation design</span>
+          </div>
+          <div class="creative-item">
+            <span style="font-size: 22px;">📂</span>
+            <span style="font-weight: 700; font-size: 14px;">Content organization</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Milestones -->
     <section id="milestones">
       <div class="sec-head">
         <h2>FEATURED <span class="holo-text">MILESTONES</span></h2>
@@ -563,14 +638,14 @@
       </div>
     </section>
 
-    
+    <!-- Contact Section -->
     <section id="connect">
       <div class="sec-head">
         <h2>GET IN <span class="holo-text">TOUCH</span></h2>
       </div>
 
       <div class="contact-row">
-       
+        <!-- DIRECT TO GMAIL WEB APP -->
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=templaza.jean@dnsc.edu.ph" target="_blank" class="contact-tile">
           <div class="icon-wrap">📧</div>
           <div>
@@ -579,7 +654,7 @@
           </div>
         </a>
 
-      
+        <!-- Direct Phone Link -->
         <a href="tel:09350863255" class="contact-tile">
           <div class="icon-wrap">📱</div>
           <div>
@@ -588,7 +663,7 @@
           </div>
         </a>
 
-        
+        <!-- Direct Facebook Link -->
         <a href="https://www.facebook.com/share/1D6x1czyyR/" target="_blank" class="contact-tile">
           <div class="icon-wrap">🌐</div>
           <div>
@@ -600,7 +675,7 @@
     </section>
   </div>
 
-  
+  <!-- LIGHTBOX MODAL -->
   <div class="modal-overlay" id="imageModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeModal()">×</button>
@@ -615,7 +690,7 @@
   </footer>
 
   <script>
-    
+    // Matrix Animated Canvas
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -650,7 +725,7 @@
     }
     setInterval(drawMatrix, 40);
 
-   
+    // Modal
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
