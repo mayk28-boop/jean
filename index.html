@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jean B. Templaza | Ultra Tech Portfolio</title>
+  <title>Jean B. Templaza | Interactive Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,131 +71,83 @@
       min-height: 100vh;
       font-family: 'Outfit', sans-serif;
       color: var(--text);
-      background-color: var(--bg);
+      background-color: #000; /* Pure black state at start */
       position: relative;
       transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    body.loading {
+    body.power-on {
+      background-color: var(--bg);
+    }
+
+    body.dark-locked {
       overflow: hidden;
     }
 
-    /* === CUSTOM SOCCER KICK LOADING SCREEN === */
-    .loader-screen {
+    /* === PULL SWITCH OVERLAY & ANIMATION === */
+    .switch-overlay {
       position: fixed;
       inset: 0;
-      z-index: 99999;
-      background: rgba(3, 0, 20, 0.98);
-      backdrop-filter: blur(35px);
-      -webkit-backdrop-filter: blur(35px);
+      z-index: 999999;
+      background: #000000;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 30px;
-      transition: opacity 0.5s ease, visibility 0.5s;
+      justify-content: flex-start;
+      user-select: none;
+      touch-action: none;
+      transition: opacity 0.6s ease, visibility 0.6s;
     }
 
-    .loader-screen.fade-out {
+    .switch-overlay.vanish {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .kick-loader-wrap {
-      width: min(680px, 90vw);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-    }
-
-    .stage-area {
-      position: relative;
-      width: 100%;
-      height: 95px;
-      display: flex;
-      align-items: flex-end;
-    }
-
-    /* CYBERPUNK ANIME HERO PLAYER */
-    .cyber-player-svg {
-      width: 90px;
-      height: 95px;
+    .hint-text {
       position: absolute;
-      left: -35px;
-      bottom: -4px;
-      z-index: 3;
-      transform-origin: bottom center;
-      filter: drop-shadow(0 0 15px var(--cyan)) drop-shadow(0 0 25px var(--accent));
-      animation: cyberKickAction 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+      top: 18%;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(14px, 2.5vw, 20px);
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      text-align: center;
+      pointer-events: none;
+      animation: pulseHint 1.8s infinite alternate;
     }
 
-    @keyframes cyberKickAction {
-      0% { transform: rotate(-5deg) translateY(0px) scale(0.98); }
-      50% { transform: rotate(8deg) translateY(-4px) scale(1.02); }
-      100% { transform: rotate(-2deg) translateY(0px) scale(1); }
+    @keyframes pulseHint {
+      0% { opacity: 0.2; transform: translateY(0); }
+      100% { opacity: 0.8; transform: translateY(6px); }
     }
 
-    /* Progress Track */
-    .progress-track-bg {
+    /* SVG Cord Container */
+    .cord-svg-wrap {
       width: 100%;
-      height: 26px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 2px solid var(--glass-border);
-      border-radius: 99px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 0 20px rgba(168, 85, 247, 0.2);
-    }
-
-    .progress-fill {
+      height: 100%;
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--cyan), var(--accent), var(--pink));
-      border-radius: 99px;
-      box-shadow: 0 0 25px var(--accent);
-      transition: width 0.05s linear;
+      overflow: visible;
     }
 
-    /* Flying Cyber Energy Ball */
-    .flying-ball {
-      position: absolute;
-      bottom: 2px;
-      left: 45px;
-      width: 28px;
-      height: 28px;
-      z-index: 4;
-      pointer-events: none;
-      filter: drop-shadow(0 0 12px var(--pink)) drop-shadow(0 0 20px var(--cyan));
-      transform: translateX(0px) rotate(0deg);
-      transition: transform 0.05s linear;
+    /* Elastic Bounce Animation on Snap Back */
+    .snap-back {
+      animation: elasticSnap 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
     }
 
-    .loader-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      text-align: center;
-      background: linear-gradient(90deg, var(--cyan), var(--accent), var(--pink));
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shineText 2s linear infinite;
-    }
-
-    @keyframes shineText {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+    @keyframes elasticSnap {
+      0% { transform: translateY(var(--pull-y, 0px)); }
+      40% { transform: translateY(-120vh); }
+      70% { transform: translateY(-105vh); }
+      100% { transform: translateY(-130vh); }
     }
 
     /* === STAGGERED NEON FLICKER ON PORTFOLIO === */
-    .neon-element { opacity: 0.05; }
+    .neon-element { opacity: 0; }
 
     body.neon-flicker .neon-element {
       animation: naturalNeonFlicker 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -210,7 +162,7 @@
     body.neon-flicker .contact-tile.neon-element { animation-delay: 1.1s; }
 
     @keyframes naturalNeonFlicker {
-      0% { opacity: 0.05; filter: drop-shadow(0 0 0px transparent); }
+      0% { opacity: 0; filter: drop-shadow(0 0 0px transparent); }
       10% { opacity: 0.95; filter: drop-shadow(0 0 18px var(--cyan)) drop-shadow(0 0 30px var(--accent)); }
       15% { opacity: 0.1; filter: drop-shadow(0 0 0px transparent); }
       28% { opacity: 1; filter: drop-shadow(0 0 25px var(--pink)) drop-shadow(0 0 40px var(--accent)); }
@@ -382,6 +334,11 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: shineText 4s linear infinite;
+    }
+
+    @keyframes shineText {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .hero-p {
@@ -667,7 +624,7 @@
       border-top: 1px solid var(--glass-border);
     }
 
-    /* === ACCURATE MOBILE FIX (MAX-WIDTH: 850px) === */
+    /* === MOBILE RESPONSIVE FIX === */
     @media (max-width: 850px) {
       nav {
         width: 92% !important;
@@ -680,176 +637,82 @@
         border-radius: 20px !important;
       }
 
-      .logo {
-        font-size: 13px !important;
-        letter-spacing: 0.5px !important;
-      }
+      .logo { font-size: 13px !important; letter-spacing: 0.5px !important; }
+      .logo-dot { width: 8px !important; height: 8px !important; }
 
-      .logo-dot {
-        width: 8px !important;
-        height: 8px !important;
-      }
-
-      .nav-right {
-        width: auto !important;
-        gap: 8px !important;
-        justify-content: flex-end !important;
-        flex-shrink: 1;
-        min-width: 0;
-      }
-
-      .nav-links {
-        gap: 10px !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        max-width: 140px;
-      }
-      
+      .nav-right { width: auto !important; gap: 8px !important; justify-content: flex-end !important; }
+      .nav-links { gap: 10px !important; overflow-x: auto !important; max-width: 140px; }
       .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { font-size: 10.5px !important; letter-spacing: 0.5px !important; }
 
-      .nav-links a {
-        font-size: 10.5px !important;
-        letter-spacing: 0.5px !important;
-      }
+      .gear-btn { width: 36px !important; height: 36px !important; font-size: 15px !important; }
+      .theme-menu { top: 45px !important; right: 0 !important; }
 
-      .gear-btn {
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 15px !important;
-        flex-shrink: 0 !important;
-      }
-
-      .theme-menu {
-        top: 45px !important;
-        right: 0 !important;
-      }
-
-      .hero {
-        grid-template-columns: 1fr !important;
-        gap: 30px !important;
-        padding: 30px 0 !important;
-      }
-
-      .btn-group {
-        flex-direction: column !important;
-        width: 100% !important;
-      }
-
-      .btn {
-        width: 100% !important;
-        justify-content: center !important;
-      }
+      .hero { grid-template-columns: 1fr !important; gap: 30px !important; padding: 30px 0 !important; }
+      .btn-group { flex-direction: column !important; width: 100% !important; }
+      .btn { width: 100% !important; justify-content: center !important; }
     }
   </style>
 </head>
-<body class="loading">
+<body class="dark-locked">
 
-  <!-- ANIMATED SOCCER KICK LOADER WITH ULTRA-TECH CYBERPUNK PLAYER -->
-  <div class="loader-screen" id="loaderScreen">
-    <div class="kick-loader-wrap">
-      
-      <div class="stage-area">
-        <!-- ULTRA-DETAILED HIGH-TECH CYBERPUNK ANIME FOOTBALLER VECTOR -->
-        <svg class="cyber-player-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="cyberArmor" x1="0" y1="0" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#06b6d4"/>
-              <stop offset="50%" stop-color="#3b82f6"/>
-              <stop offset="100%" stop-color="#a855f7"/>
-            </linearGradient>
-            <linearGradient id="visorGlow" x1="0" y1="0" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#22d3ee"/>
-              <stop offset="100%" stop-color="#ec4899"/>
-            </linearGradient>
-            <radialGradient id="energyCore" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#38bdf8"/>
-              <stop offset="60%" stop-color="#818cf8"/>
-              <stop offset="100%" stop-color="#c084fc"/>
-            </radialGradient>
-            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-            </filter>
-          </defs>
+  <!-- REALISTIC PULL-CORD LIGHT SWITCH OVERLAY -->
+  <div class="switch-overlay" id="switchOverlay">
+    <div class="hint-text">👇 BIRAHA ANG PISI PARA MO-SIGA</div>
 
-          <!-- Dynamic Motion Energy Trails behind Player -->
-          <path d="M10 85 Q35 75 60 90" stroke="#06b6d4" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.6"/>
-          <path d="M15 95 Q40 88 75 102" stroke="#ec4899" stroke-width="2" stroke-dasharray="3 3" opacity="0.7"/>
+    <div class="cord-svg-wrap" id="cordContainer">
+      <svg width="100%" height="100%" viewBox="0 0 500 800" preserveAspectRatio="xMidYMin slice" id="cordSvg">
+        <defs>
+          <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="40%" stop-color="#eab308"/>
+            <stop offset="70%" stop-color="#ca8a04"/>
+            <stop offset="100%" stop-color="#854d0e"/>
+          </linearGradient>
+          <radialGradient id="ballShine" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#facc15"/>
+            <stop offset="100%" stop-color="#713f12"/>
+          </radialGradient>
+          <filter id="handShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000000" flood-opacity="0.8"/>
+          </filter>
+        </defs>
 
-          <!-- Cyber Helmet / Head Structure -->
-          <path d="M 52 28 C 45 15, 75 8, 85 24 C 90 32, 82 42, 72 44 C 60 45, 52 38, 52 28 Z" fill="#0f172a" stroke="url(#cyberArmor)" stroke-width="2.5"/>
-          <!-- Anime Spike Hair Accents -->
-          <path d="M 55 18 L 48 8 L 62 14 L 68 4 L 75 15 L 86 8 L 84 20" fill="#a855f7"/>
-          <!-- Cyberpunk Visor Glow HUD -->
-          <path d="M 68 28 C 76 27, 86 31, 88 35 C 84 40, 72 41, 66 38 Z" fill="url(#visorGlow)" filter="url(#neonGlow)"/>
-          <line x1="70" y1="33" x2="84" y2="35" stroke="#ffffff" stroke-width="1.5" opacity="0.9"/>
+        <!-- Dynamic Beaded Cord Line -->
+        <path id="cordLine" d="M 250 0 L 250 320" stroke="#d97706" stroke-width="4" stroke-dasharray="2 4" stroke-linecap="round"/>
 
-          <!-- High-Tech Shoulder Armor -->
-          <path d="M 42 46 L 58 44 L 62 56 L 38 56 Z" fill="#1e1b4b" stroke="#06b6d4" stroke-width="2"/>
-          <path d="M 82 46 L 98 48 L 94 58 L 78 54 Z" fill="#1e1b4b" stroke="#ec4899" stroke-width="2"/>
+        <!-- Interactive Drag Group (Switch Knob + Realistic Hand) -->
+        <g id="pullGroup" transform="translate(0, 0)" style="cursor: grab;">
+          <!-- Top Socket Base -->
+          <circle cx="250" cy="318" r="6" fill="#a16207"/>
 
-          <!-- Tactical Cyber Jersey / Armor Core -->
-          <path d="M 46 54 L 84 52 L 80 82 L 48 82 Z" fill="url(#cyberArmor)" rx="4"/>
-          <!-- Cyber Lines & Chest Core Arc -->
-          <circle cx="65" cy="66" r="7" fill="#030014" stroke="#22d3ee" stroke-width="2"/>
-          <circle cx="65" cy="66" r="3.5" fill="#ec4899" filter="url(#neonGlow)"/>
-          <path d="M 52 60 L 58 78 M 78 60 L 72 78" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <!-- Metallic Brass Ball Knob -->
+          <circle cx="250" cy="335" r="16" fill="url(#ballShine)" stroke="#854d0e" stroke-width="1.5" filter="url(#handShadow)"/>
+          <ellipse cx="245" cy="330" rx="4" ry="2" fill="#ffffff" opacity="0.6"/>
 
-          <!-- Dynamic Cyber Arms -->
-          <path d="M 40 54 L 26 68 L 32 74 L 44 62" fill="#0f172a" stroke="#06b6d4" stroke-width="1.5"/>
-          <path d="M 88 52 L 104 62 L 100 70 L 84 60" fill="#0f172a" stroke="#ec4899" stroke-width="1.5"/>
-
-          <!-- Arm Cybernetic Joints -->
-          <circle cx="28" cy="70" r="3" fill="#a855f7"/>
-          <circle cx="102" cy="65" r="3" fill="#06b6d4"/>
-
-          <!-- Tech Shorts -->
-          <path d="M 46 82 L 82 82 L 86 100 L 70 100 L 65 90 L 60 100 L 42 100 Z" fill="#09090b" stroke="url(#cyberArmor)" stroke-width="2"/>
-
-          <!-- Left Leg (Anchored Stance) -->
-          <path d="M 50 100 L 46 122" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
-          <path d="M 46 122 L 44 132" stroke="#06b6d4" stroke-width="7" stroke-linecap="round"/>
-          <!-- Left Cyber Cleat -->
-          <path d="M 44 132 L 34 136" stroke="#a855f7" stroke-width="6" stroke-linecap="round" filter="url(#neonGlow)"/>
-
-          <!-- Right Leg (Ultra Kicking Action) -->
-          <path d="M 76 100 L 98 116" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
-          <path d="M 98 116 L 118 126" stroke="#ec4899" stroke-width="8" stroke-linecap="round"/>
-          <!-- Right Cyber Cleat Energy Kick Core -->
-          <path d="M 118 126 L 132 126" stroke="#22d3ee" stroke-width="7" stroke-linecap="round" filter="url(#neonGlow)"/>
-          
-          <!-- Energy Impact Flare at Foot -->
-          <circle cx="132" cy="126" r="6" fill="#ffffff" filter="url(#neonGlow)"/>
-        </svg>
-
-        <!-- FLYING CYBER ENERGY SOCCER BALL SVG -->
-        <div class="flying-ball" id="flyingBall">
-          <svg viewBox="0 0 40 40" width="100%" height="100%">
-            <circle cx="20" cy="20" r="18" fill="url(#energyCore)" stroke="#06b6d4" stroke-width="2.5"/>
-            <polygon points="20,8 28,14 25,24 15,24 12,14" fill="#030014" stroke="#ec4899" stroke-width="1.5"/>
-            <line x1="20" y1="8" x2="20" y2="2" stroke="#22d3ee" stroke-width="2"/>
-            <line x1="28" y1="14" x2="34" y2="12" stroke="#22d3ee" stroke-width="2"/>
-            <line x1="25" y1="24" x2="30" y2="30" stroke="#22d3ee" stroke-width="2"/>
-            <line x1="15" y1="24" x2="10" y2="30" stroke="#22d3ee" stroke-width="2"/>
-            <line x1="12" y1="14" x2="6" y2="12" stroke="#22d3ee" stroke-width="2"/>
-            <circle cx="20" cy="17" r="3" fill="#ffffff" filter="url(#neonGlow)"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Loading Track -->
-      <div class="progress-track-bg">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-
+          <!-- REALISTIC HAND SVG GRasping the Ball -->
+          <g transform="translate(200, 325)" filter="url(#handShadow)">
+            <!-- Arm Sleeve Accent -->
+            <path d="M 42 160 L 85 160 L 80 115 L 45 115 Z" fill="#1e1b4b"/>
+            
+            <!-- Hand / Wrist Structure -->
+            <path d="M 46 116 C 45 95, 48 80, 52 70 C 54 60, 52 48, 48 40 C 44 32, 53 28, 58 35 C 62 42, 65 52, 65 62 C 68 50, 75 42, 80 48 C 84 53, 78 65, 75 75 C 80 68, 86 64, 89 70 C 92 76, 84 85, 78 92 M 46 116 L 80 115" fill="#e0a96d" stroke="#b45309" stroke-width="1.5" stroke-linejoin="round"/>
+            
+            <!-- Closed Fingers wrapped on Cord Knob -->
+            <!-- Thumb -->
+            <path d="M 38 52 C 32 45, 36 32, 48 30 C 56 28, 58 38, 52 48 Z" fill="#d99b5a" stroke="#b45309" stroke-width="1.2"/>
+            <!-- Index Finger -->
+            <path d="M 48 32 C 45 22, 55 18, 62 25 C 66 30, 58 40, 52 38 Z" fill="#f0b77d" stroke="#b45309" stroke-width="1.2"/>
+            <!-- Middle & Ring Finger folds -->
+            <path d="M 58 35 C 64 30, 72 35, 68 45 C 64 50, 58 48, 56 42 Z" fill="#d99b5a" stroke="#b45309" stroke-width="1.2"/>
+          </g>
+        </g>
+      </svg>
     </div>
-
-    <div class="loader-text">INITIALIZING CYBER SYSTEM... <span id="loadCounter">1%</span></div>
   </div>
 
-  <!-- MAIN APP CONTENT -->
+  <!-- MAIN PORTFOLIO CONTENT -->
   <div class="app-content">
     <canvas id="matrix-bg"></canvas>
 
@@ -1037,63 +900,93 @@
   </div>
 
   <script>
-    // 1. EXACT 5-SECOND KICK LOADER ANIMATION
-    const counterEl = document.getElementById('loadCounter');
-    const loaderScreen = document.getElementById('loaderScreen');
-    const progressFill = document.getElementById('progressFill');
-    const flyingBall = document.getElementById('flyingBall');
+    // === 1. REALISTIC INTERACTIVE PULL-CORD LOGIC ===
+    const pullGroup = document.getElementById('pullGroup');
+    const cordLine = document.getElementById('cordLine');
+    const switchOverlay = document.getElementById('switchOverlay');
     
-    const totalDuration = 5000;
-    const updateInterval = 20;  
-    const totalSteps = totalDuration / updateInterval; 
-    let currentStep = 0;
+    let isDragging = false;
+    let startY = 0;
+    let currentY = 0;
+    const thresholdY = 130; // Minimum pull distance to turn on light
+    let hasTriggered = false;
 
-    const trackWidth = document.querySelector('.progress-track-bg').offsetWidth || 600;
+    function onDragStart(e) {
+      if (hasTriggered) return;
+      isDragging = true;
+      startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      pullGroup.style.cursor = 'grabbing';
+    }
 
-    const loadTimer = setInterval(() => {
-      currentStep++;
-      let percent = Math.floor((currentStep / totalSteps) * 100);
+    function onDragMove(e) {
+      if (!isDragging || hasTriggered) return;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      const deltaY = clientY - startY;
 
-      if (percent >= 100) {
-        percent = 100;
-        counterEl.innerText = "100%";
-        progressFill.style.width = "100%";
+      if (deltaY > 0) {
+        currentY = Math.min(deltaY, 260); // Maximum drag limit
+        pullGroup.setAttribute('transform', `translate(0, ${currentY})`);
+        cordLine.setAttribute('d', `M 250 0 L 250 ${320 + currentY}`);
+      }
+    }
+
+    function onDragEnd() {
+      if (!isDragging || hasTriggered) return;
+      isDragging = false;
+      pullGroup.style.cursor = 'grab';
+
+      if (currentY >= thresholdY) {
+        // SUCCESSFUL PULL SWITCH!
+        hasTriggered = true;
         
-        const maxTravel = trackWidth - 36;
-        flyingBall.style.transform = `translateX(${maxTravel}px) rotate(${100 * 14}deg)`;
+        // 1. Play snap back animation
+        document.getElementById('cordSvg').style.setProperty('--pull-y', `${currentY}px`);
+        document.getElementById('cordSvg').classList.add('snap-back');
 
-        clearInterval(loadTimer);
+        // 2. Power on the site & trigger neon effect
+        document.body.classList.remove('dark-locked');
+        document.body.classList.add('power-on');
+        document.body.classList.add('neon-flicker');
 
+        // 3. Fade out the switch overlay completely
         setTimeout(() => {
-          loaderScreen.classList.add('fade-out');
-          document.body.classList.remove('loading');
-          document.body.classList.add('neon-flicker');
+          switchOverlay.classList.add('vanish');
         }, 300);
 
       } else {
-        counterEl.innerText = (percent === 0 ? 1 : percent) + "%";
-        progressFill.style.width = percent + "%";
-
-        const currentTravel = ((trackWidth - 36) * (percent / 100));
-        const rotationAngle = percent * 14;
-        flyingBall.style.transform = `translateX(${currentTravel}px) rotate(${rotationAngle}deg)`;
+        // RESET BACK TO ORIGINAL POSITION IF NOT PULLED FAR ENOUGH
+        pullGroup.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        pullGroup.setAttribute('transform', `translate(0, 0)`);
+        cordLine.setAttribute('d', `M 250 0 L 250 320`);
+        
+        setTimeout(() => {
+          pullGroup.style.transition = 'none';
+        }, 300);
+        currentY = 0;
       }
-    }, updateInterval);
+    }
 
-    // 2. PRESS/BOUNCE EFFECT FOR PROFILE CARD
+    // Event Listeners for Mouse & Touch
+    pullGroup.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+
+    pullGroup.addEventListener('touchstart', onDragStart, { passive: true });
+    window.addEventListener('touchmove', onDragMove, { passive: true });
+    window.addEventListener('touchend', onDragEnd);
+
+    // === 2. PRESS / BOUNCE EFFECT FOR PROFILE CARD ===
     const profileCard = document.getElementById('profileCard');
-
     function startPress() { profileCard.classList.add('pressed'); }
     function endPress() { profileCard.classList.remove('pressed'); }
 
     profileCard.addEventListener('mousedown', startPress);
     profileCard.addEventListener('mouseup', endPress);
     profileCard.addEventListener('mouseleave', endPress);
-    profileCard.addEventListener('touchstart', startPress);
+    profileCard.addEventListener('touchstart', startPress, { passive: true });
     profileCard.addEventListener('touchend', endPress);
-    profileCard.addEventListener('touchcancel', endPress);
 
-    // 3. 3D CARD TILT
+    // === 3. 3D CARD TILT ===
     const tiltCards = document.querySelectorAll('.tilt-card');
     tiltCards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -1114,7 +1007,7 @@
       });
     });
 
-    // 4. THEME CONTROLLER & GEAR
+    // === 4. THEME CONTROLLER & GEAR ===
     function triggerGearSpin() {
       const gear = document.getElementById('gearBtn');
       gear.classList.remove('spin');
@@ -1148,7 +1041,7 @@
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) setTheme(savedTheme);
 
-    // 5. MATRIX RAIN
+    // === 5. MATRIX RAIN ===
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -1184,7 +1077,7 @@
     }
     setInterval(drawMatrix, 33);
 
-    // 6. MODAL INTERACTION
+    // === 6. MODAL INTERACTION ===
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
