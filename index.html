@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jean B. Templaza | Tech Specialist</title>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -14,7 +13,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
-    /* DARK MODE (DEFAULT) */
     :root {
       --bg: #030014;
       --card-bg: rgba(255, 255, 255, 0.03);
@@ -31,7 +29,22 @@
       --matrix-color: #a855f7;
     }
 
-    /* LIGHT MODE OVERRIDES */
+    body.dark-mode {
+      --bg: #09090b;
+      --card-bg: rgba(24, 24, 27, 0.8);
+      --glass-border: rgba(39, 39, 42, 0.8);
+      --text: #fafafa;
+      --text-dim: #a1a1aa;
+      --accent: #6366f1;
+      --glow: rgba(99, 102, 241, 0.3);
+      --cyan: #38bdf8;
+      --pink: #f43f5e;
+      --nav-bg: rgba(18, 18, 20, 0.85);
+      --scanner-bg: rgba(24, 24, 27, 0.9);
+      --matrix-opacity: 0.12;
+      --matrix-color: #6366f1;
+    }
+
     body.light-mode {
       --bg: #f8fafc;
       --card-bg: rgba(255, 255, 255, 0.85);
@@ -120,28 +133,90 @@
     }
     .nav-links a:hover { color: var(--text); text-shadow: 0 0 10px var(--glow); }
 
-    /* TOGGLE THEME BUTTON */
-    .theme-toggle-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--glass-border);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.3s ease;
-    }
-    .theme-toggle-btn:hover {
-      background: var(--accent);
-      color: #fff;
-      transform: scale(1.05);
+    .theme-wrapper {
+      position: relative;
     }
 
-    /* Hero */
+    .gear-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .gear-btn:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--glow);
+    }
+
+    .gear-btn.spin {
+      animation: fastSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes fastSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    .theme-menu {
+      position: absolute;
+      top: 52px;
+      right: 0;
+      background: var(--nav-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 18px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-12px) scale(0.85);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      z-index: 1001;
+      min-width: 120px;
+    }
+
+    .theme-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .theme-menu button {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .theme-menu button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
     .hero {
       min-height: 85vh;
       display: grid;
@@ -224,7 +299,6 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-3px); }
 
-    /* Profile Card */
     .profile-scanner-wrap {
       position: relative;
       display: flex;
@@ -275,7 +349,6 @@
       object-fit: cover;
     }
 
-    /* HUD INFO CARDS */
     .hud-info {
       position: relative;
       z-index: 1;
@@ -323,7 +396,6 @@
       color: var(--text);
     }
 
-    /* Sections */
     section { padding: 60px 0; }
     
     .sec-head { margin-bottom: 30px; }
@@ -334,7 +406,6 @@
       letter-spacing: -1px;
     }
 
-    /* FEATURE CARDS */
     .feature-card {
       background: var(--card-bg);
       border: 1px solid var(--glass-border);
@@ -375,7 +446,6 @@
       transform: translateY(-3px);
     }
 
-    /* Grid & Modal */
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
@@ -441,7 +511,6 @@
       line-height: 1.7;
     }
 
-    /* CONTACT TILES */
     .contact-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -481,7 +550,6 @@
       font-size: 20px;
     }
 
-    /* LIGHTBOX MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -560,10 +628,8 @@
 </head>
 <body>
 
-  <!-- Matrix Canvas Background -->
   <canvas id="matrix-bg"></canvas>
 
-  <!-- Navbar -->
   <nav>
     <div class="logo">
       <span class="logo-dot"></span> JEAN.TEMPLAZA
@@ -577,15 +643,18 @@
         <a href="#connect">Connect</a>
       </div>
 
-      <!-- Light / Dark Mode Toggle Button -->
-      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
-      </button>
+      <div class="theme-wrapper">
+        <button class="gear-btn" id="gearBtn" onclick="toggleThemeMenu()">⚙️</button>
+        <div class="theme-menu" id="themeMenu">
+          <button onclick="setTheme('default')"><span>🔮</span> Default</button>
+          <button onclick="setTheme('dark')"><span>🌙</span> Dark</button>
+          <button onclick="setTheme('light')"><span>☀️</span> Light</button>
+        </div>
+      </div>
     </div>
   </nav>
 
   <div class="container">
-    <!-- Hero Section -->
     <section class="hero" id="about">
       <div>
         <h1>JEAN B. <br><span class="holo-text">TEMPLAZA</span></h1>
@@ -607,7 +676,6 @@
         </div>
       </div>
 
-      <!-- Holographic Profile Scanner Card -->
       <div class="profile-scanner-wrap">
         <div class="scanner-card">
           <div class="radar-ring"></div>
@@ -615,7 +683,6 @@
             <img src="assets/assets/jean-profile.jpg" alt="Jean Templaza" />
           </div>
           
-          <!-- HUD INFO CARDS -->
           <div class="hud-info">
             <div class="hud-item">
               <h5>Status</h5>
@@ -638,7 +705,6 @@
       </div>
     </section>
 
-    <!-- What I Am Building & Creative Section -->
     <section id="building">
       <div class="feature-card">
         <div class="sec-head" style="margin-bottom: 16px;">
@@ -649,7 +715,6 @@
         </p>
       </div>
 
-      <!-- Creative Skills Block -->
       <div class="feature-card">
         <div class="sec-head" style="margin-bottom: 10px;">
           <h2>CREATIVE <span class="holo-text">FOCUS</span></h2>
@@ -673,7 +738,6 @@
       </div>
     </section>
 
-    <!-- Milestones -->
     <section id="milestones">
       <div class="sec-head">
         <h2>FEATURED <span class="holo-text">MILESTONES</span></h2>
@@ -701,14 +765,12 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="connect">
       <div class="sec-head">
         <h2>GET IN <span class="holo-text">TOUCH</span></h2>
       </div>
 
       <div class="contact-row">
-        <!-- DIRECT TO GMAIL WEB APP -->
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=templaza.jean@dnsc.edu.ph" target="_blank" class="contact-tile">
           <div class="icon-wrap">📧</div>
           <div>
@@ -717,7 +779,6 @@
           </div>
         </a>
 
-        <!-- Direct Phone Link -->
         <a href="tel:09350863255" class="contact-tile">
           <div class="icon-wrap">📱</div>
           <div>
@@ -726,7 +787,6 @@
           </div>
         </a>
 
-        <!-- Direct Facebook Link -->
         <a href="https://www.facebook.com/share/1D6x1czyyR/" target="_blank" class="contact-tile">
           <div class="icon-wrap">🌐</div>
           <div>
@@ -738,7 +798,6 @@
     </section>
   </div>
 
-  <!-- LIGHTBOX MODAL -->
   <div class="modal-overlay" id="imageModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeModal()">×</button>
@@ -753,25 +812,44 @@
   </footer>
 
   <script>
-    // Theme Switcher Logic
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      
-      document.getElementById('themeIcon').innerText = isLight ? '☀️' : '🌙';
-      document.getElementById('themeText').innerText = isLight ? 'Light' : 'Dark';
-      
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    function triggerGearSpin() {
+      const gear = document.getElementById('gearBtn');
+      gear.classList.remove('spin');
+      void gear.offsetWidth;
+      gear.classList.add('spin');
     }
 
-    // Load Saved Theme
-    if (localStorage.getItem('theme') === 'light') {
-      document.body.classList.add('light-mode');
-      document.getElementById('themeIcon').innerText = '☀️';
-      document.getElementById('themeText').innerText = 'Light';
+    function toggleThemeMenu() {
+      triggerGearSpin();
+      document.getElementById('themeMenu').classList.toggle('active');
     }
 
-    // Matrix Animated Canvas
+    function setTheme(mode) {
+      triggerGearSpin();
+      document.body.classList.remove('light-mode', 'dark-mode');
+
+      if (mode === 'light') {
+        document.body.classList.add('light-mode');
+      } else if (mode === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+
+      localStorage.setItem('theme', mode);
+      document.getElementById('themeMenu').classList.remove('active');
+    }
+
+    document.addEventListener('click', (e) => {
+      const wrapper = document.querySelector('.theme-wrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('themeMenu').classList.remove('active');
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -807,7 +885,6 @@
     }
     setInterval(drawMatrix, 40);
 
-    // Modal
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
