@@ -113,28 +113,29 @@
     .stage-area {
       position: relative;
       width: 100%;
-      height: 70px;
+      height: 80px;
       display: flex;
       align-items: flex-end;
     }
 
-    /* Player Vector Styling */
-    .player-svg {
-      width: 55px;
-      height: 55px;
+    /* DETAILED CARTOON SOCCER PLAYER STYLING */
+    .cartoon-player-svg {
+      width: 65px;
+      height: 75px;
       position: absolute;
-      left: -20px;
-      bottom: 0;
+      left: -25px;
+      bottom: -2px;
       z-index: 3;
       transform-origin: bottom center;
-      animation: kickAnimation 0.8s ease-in-out forwards;
+      filter: drop-shadow(0 0 12px var(--cyan));
+      animation: cartoonKickAction 1s ease-in-out infinite alternate;
     }
 
-    @keyframes kickAnimation {
-      0% { transform: rotate(0deg); }
-      40% { transform: rotate(-18deg) translateX(-5px); }
-      70% { transform: rotate(12deg) translateX(8px); }
-      100% { transform: rotate(0deg); }
+    @keyframes cartoonKickAction {
+      0% { transform: rotate(0deg) translateY(0px); }
+      30% { transform: rotate(-12deg) translateY(-2px); }
+      70% { transform: rotate(8deg) translateY(0px); }
+      100% { transform: rotate(0deg) translateY(0px); }
     }
 
     /* Progress Track */
@@ -700,7 +701,6 @@
         min-width: 0;
       }
 
-      /* Inner scrollable nav links so gear button is always anchored on the right edge */
       .nav-links {
         gap: 10px !important;
         overflow-x: auto !important;
@@ -751,22 +751,53 @@
 </head>
 <body class="loading">
 
-  <!-- ANIMATED SOCCER KICK LOADER (5 SECONDS) -->
+  <!-- ANIMATED SOCCER KICK LOADER WITH HIGH-DETAIL CARTOON PLAYER -->
   <div class="loader-screen" id="loaderScreen">
     <div class="kick-loader-wrap">
       
       <div class="stage-area">
-        <svg class="player-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="28" cy="14" r="7" fill="#06b6d4" />
-          <path d="M26 21L18 38H26L32 25" stroke="#a855f7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 38L16 58" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
-          <path d="M24 38L42 48" stroke="#ec4899" stroke-width="4.5" stroke-linecap="round"/>
-          <path d="M26 25L10 20M26 25L40 18" stroke="#a855f7" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- DETAILED CARTOON VECTOR PLAYER (NO MORE STICKMAN) -->
+        <svg class="cartoon-player-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Hair -->
+          <path d="M 35 18 C 30 10, 55 5, 62 18 C 65 24, 60 28, 55 28 C 45 28, 38 24, 35 18 Z" fill="#1e1b18"/>
+          <!-- Head / Skin -->
+          <ellipse cx="48" cy="24" rx="12" ry="14" fill="#f8d5b1"/>
+          <!-- Face Details (Eyes & Smile) -->
+          <circle cx="52" cy="22" r="1.8" fill="#111"/>
+          <path d="M 50 28 Q 53 31 56 28" stroke="#a0522d" stroke-width="1.2" fill="none"/>
+          
+          <!-- Jersey / Shirt (Cyan & Neon Accent) -->
+          <path d="M 32 38 L 64 38 L 68 62 L 28 62 Z" fill="#06b6d4" rx="3"/>
+          <path d="M 44 38 L 52 38 L 54 62 L 42 62 Z" fill="#a855f7" opacity="0.8"/>
+          <!-- Jersey Number 10 -->
+          <text x="48" y="54" font-family="'Space Grotesk', sans-serif" font-weight="900" font-size="12" fill="#ffffff" text-anchor="middle">10</text>
+          
+          <!-- Left Arm -->
+          <path d="M 32 40 L 20 52" stroke="#f8d5b1" stroke-width="5" stroke-linecap="round"/>
+          <!-- Right Arm -->
+          <path d="M 64 40 L 76 48" stroke="#f8d5b1" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- Shorts (Dark Purple) -->
+          <path d="M 28 62 L 68 62 L 65 78 L 51 78 L 48 70 L 45 78 L 31 78 Z" fill="#1e1035"/>
+
+          <!-- Left Leg (Standing/Base) -->
+          <path d="M 38 78 L 35 98" stroke="#f8d5b1" stroke-width="6" stroke-linecap="round"/>
+          <!-- Left Sock & Cleat -->
+          <path d="M 35 98 L 35 108" stroke="#ec4899" stroke-width="6.5" stroke-linecap="round"/>
+          <path d="M 35 108 L 28 111" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- Right Leg (Kicking Leg) -->
+          <path d="M 58 78 L 74 92" stroke="#f8d5b1" stroke-width="6.5" stroke-linecap="round"/>
+          <!-- Right Sock & Cleat -->
+          <path d="M 74 92 L 86 102" stroke="#ec4899" stroke-width="7" stroke-linecap="round"/>
+          <path d="M 86 102 L 96 102" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
         </svg>
 
+        <!-- Flying Ball -->
         <div class="flying-ball" id="flyingBall">⚽</div>
       </div>
 
+      <!-- Loading Track -->
       <div class="progress-track-bg">
         <div class="progress-fill" id="progressFill"></div>
       </div>
