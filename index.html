@@ -75,28 +75,12 @@
       overflow: hidden;
     }
 
-    /* === MOUSE SPOTLIGHT FOLLOWER === */
-    .cursor-glow {
-      position: fixed;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 99;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s;
-      mix-blend-mode: screen;
-      will-change: transform;
-      opacity: 0.6;
-    }
-
     /* === ULTRA LOADER SCREEN === */
     .loader-screen {
       position: fixed;
       inset: 0;
       z-index: 99999;
-      background: rgba(3, 0, 20, 0.96);
+      background: rgba(3, 0, 20, 0.98);
       backdrop-filter: blur(35px);
       -webkit-backdrop-filter: blur(35px);
       display: flex;
@@ -105,7 +89,7 @@
       justify-content: center;
       gap: 20px;
       will-change: opacity;
-      transition: opacity 0.5s ease, visibility 0.5s;
+      transition: opacity 0.4s ease, visibility 0.4s;
     }
 
     .loader-screen.fade-out {
@@ -188,28 +172,26 @@
       100% { background-position: 200% center; }
     }
 
-    /* === NEON LIGHT FLICKER ON ANIMATION FOR MAIN CONTENT === */
-    .app-content {
-      opacity: 0;
-      will-change: opacity, filter;
+    /* === REALISTIC NEON FLICKER ON SPECIFIC PORTFOLIO ELEMENTS === */
+    body.neon-flicker nav,
+    body.neon-flicker .scanner-card,
+    body.neon-flicker .holo-text,
+    body.neon-flicker .hud-item,
+    body.neon-flicker .icon-wrap {
+      animation: neonElementFlicker 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
 
-    /* Triggered after 100% load */
-    body.neon-flicker .app-content {
-      animation: neonTurnOn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-
-    @keyframes neonTurnOn {
-      0% { opacity: 0; filter: brightness(0.1) drop-shadow(0 0 0px transparent); }
-      10% { opacity: 0.8; filter: brightness(1.8) drop-shadow(0 0 30px var(--cyan)); }
-      15% { opacity: 0.1; filter: brightness(0.2); }
-      25% { opacity: 0.9; filter: brightness(2) drop-shadow(0 0 40px var(--pink)); }
-      30% { opacity: 0.2; filter: brightness(0.3); }
-      40% { opacity: 1; filter: brightness(1.6) drop-shadow(0 0 25px var(--accent)); }
-      50% { opacity: 0.4; filter: brightness(0.5); }
-      65% { opacity: 1; filter: brightness(1.3); }
-      80% { opacity: 0.8; filter: brightness(0.9); }
-      100% { opacity: 1; filter: brightness(1) drop-shadow(0 0 0px transparent); }
+    @keyframes neonElementFlicker {
+      0% { opacity: 0.1; box-shadow: 0 0 0px transparent; border-color: transparent; }
+      12% { opacity: 1; box-shadow: 0 0 35px var(--cyan), inset 0 0 15px var(--cyan); border-color: var(--cyan); }
+      18% { opacity: 0.2; box-shadow: none; border-color: transparent; }
+      32% { opacity: 0.9; box-shadow: 0 0 45px var(--pink), inset 0 0 20px var(--pink); border-color: var(--pink); }
+      38% { opacity: 0.1; box-shadow: none; }
+      55% { opacity: 1; box-shadow: 0 0 30px var(--accent), inset 0 0 10px var(--accent); border-color: var(--accent); }
+      65% { opacity: 0.4; box-shadow: none; }
+      80% { opacity: 0.95; box-shadow: 0 0 25px var(--cyan); }
+      90% { opacity: 0.7; }
+      100% { opacity: 1; }
     }
 
     #matrix-bg {
@@ -695,16 +677,12 @@
       .hero { grid-template-columns: 1fr; gap: 40px; }
       nav { flex-direction: column; gap: 14px; border-radius: 24px; }
       .nav-right { width: 100%; justify-content: space-between; }
-      .cursor-glow { display: none; }
     }
   </style>
 </head>
 <body class="loading">
 
-  <!-- DYNAMIC MOUSE SPOTLIGHT -->
-  <div class="cursor-glow" id="cursorGlow"></div>
-
-  <!-- LOADER SCREEN WITH REALTIME 1-100% COUNTER -->
+  <!-- LOADER SCREEN WITH EXACT 3-SECOND REALTIME COUNTER -->
   <div class="loader-screen" id="loaderScreen">
     <div class="soccer-container">
       <div class="ball-glow-ring"></div>
@@ -902,61 +880,50 @@
   </div>
 
   <script>
-    // 1. REALTIME 1% TO 100% COUNTER & NEON FLICKER INTRO
+    // 1. EXACT 3-SECOND TIMER (1% to 100%)
     const counterEl = document.getElementById('loadCounter');
     const loaderScreen = document.getElementById('loaderScreen');
-    let currentPercent = 1;
+    
+    const totalDuration = 3000; // 3 Seconds
+    const updateInterval = 30;  // updates every 30ms
+    const totalSteps = totalDuration / updateInterval; // 100 steps
+    let currentStep = 0;
 
-    // Increments percentage fast until 100%
-    const loadInterval = setInterval(() => {
-      currentPercent += Math.floor(Math.random() * 4) + 1; // Smooth variable step
+    const loadTimer = setInterval(() => {
+      currentStep++;
+      let percent = Math.floor((currentStep / totalSteps) * 100);
 
-      if (currentPercent >= 100) {
-        currentPercent = 100;
+      if (percent >= 100) {
+        percent = 100;
         counterEl.innerText = "100%";
-        clearInterval(loadInterval);
+        clearInterval(loadTimer);
 
-        // Wait a tiny bit then hide loader & trigger NEON LIGHT FLICKER ON
+        // Hide loader & trigger real NEON LIGHT FLICKER on portfolio elements
         setTimeout(() => {
           loaderScreen.classList.add('fade-out');
           document.body.classList.remove('loading');
-          document.body.classList.add('neon-flicker'); // Starts neon lighting effect
-        }, 300);
+          document.body.classList.add('neon-flicker');
+        }, 150);
 
       } else {
-        counterEl.innerText = currentPercent + "%";
+        counterEl.innerText = (percent === 0 ? 1 : percent) + "%";
       }
-    }, 25); // Fast smooth counting
+    }, updateInterval);
 
-    // 2. MOUSE CURSOR SPOTLIGHT TRACKING
-    const cursorGlow = document.getElementById('cursorGlow');
-    window.addEventListener('mousemove', (e) => {
-      cursorGlow.style.left = e.clientX + 'px';
-      cursorGlow.style.top = e.clientY + 'px';
-    });
-
-    // 3. LONG-PRESS / BOUNCEBACK EFFECT FOR PROFILE CARD ONLY
+    // 2. LONG-PRESS / BOUNCEBACK EFFECT FOR PROFILE CARD
     const profileCard = document.getElementById('profileCard');
 
-    function startPress() {
-      profileCard.classList.add('pressed');
-    }
+    function startPress() { profileCard.classList.add('pressed'); }
+    function endPress() { profileCard.classList.remove('pressed'); }
 
-    function endPress() {
-      profileCard.classList.remove('pressed');
-    }
-
-    // Mouse events
     profileCard.addEventListener('mousedown', startPress);
     profileCard.addEventListener('mouseup', endPress);
     profileCard.addEventListener('mouseleave', endPress);
-
-    // Touch events for mobile phones
     profileCard.addEventListener('touchstart', startPress);
     profileCard.addEventListener('touchend', endPress);
     profileCard.addEventListener('touchcancel', endPress);
 
-    // 4. 3D CARD TILT EFFECT (RETAINED ONLY FOR MILESTONES & ACHIEVEMENTS)
+    // 3. 3D CARD TILT EFFECT (MILESTONES & ACHIEVEMENTS)
     const tiltCards = document.querySelectorAll('.tilt-card');
     tiltCards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -977,7 +944,7 @@
       });
     });
 
-    // 5. THEME CONTROLLER & GEAR ANIMATION
+    // 4. THEME CONTROLLER & GEAR ANIMATION
     function triggerGearSpin() {
       const gear = document.getElementById('gearBtn');
       gear.classList.remove('spin');
@@ -1011,7 +978,7 @@
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) setTheme(savedTheme);
 
-    // 6. HIGH PERFORMANCE MATRIX RAIN
+    // 5. HIGH PERFORMANCE MATRIX RAIN
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -1047,7 +1014,7 @@
     }
     setInterval(drawMatrix, 33);
 
-    // 7. MODAL INTERACTION
+    // 6. MODAL INTERACTION
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
