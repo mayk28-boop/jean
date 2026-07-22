@@ -465,8 +465,8 @@
     }
     .btn-sub:hover { border-color: var(--pink); color: var(--pink); transform: translate3d(0, -4px, 0); }
 
-    /* === PROFILE HUD SCANNER === */
-    .profile-scanner-wrap { display: flex; justify-content: center; perspective: 1000px; }
+    /* === PROFILE HUD SCANNER (No 3D Tilt, pure long-press bounceback) === */
+    .profile-scanner-wrap { display: flex; justify-content: center; }
 
     .scanner-card {
       position: relative;
@@ -479,8 +479,17 @@
       backdrop-filter: blur(20px);
       box-shadow: 0 25px 60px rgba(0,0,0,0.3);
       overflow: hidden;
-      transition: border-color 0.4s ease;
-      transform-style: preserve-3d;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+      will-change: transform;
+    }
+
+    /* Long Press Active State */
+    .scanner-card.pressed {
+      transform: scale3d(0.92, 0.92, 1) translate3d(0, 8px, 0);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
     }
 
     .radar-ring {
@@ -571,7 +580,7 @@
     .grid { display: grid; gap: 30px; }
     .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 
-    /* 3D Tilt Dynamic Cards */
+    /* 3D Tilt Dynamic Cards (Retained ONLY for Achievements & Team Section) */
     .holo-card {
       background: var(--card-bg);
       border: 1px solid var(--glass-border);
@@ -808,7 +817,7 @@
         </div>
 
         <div class="profile-scanner-wrap">
-          <div class="scanner-card tilt-card">
+          <div class="scanner-card" id="profileCard">
             <div class="radar-ring"></div>
             <div class="profile-img-holder">
               <img src="assets/assets/jean-profile.jpg" alt="Jean Templaza" />
@@ -962,7 +971,7 @@
           wave.classList.remove('active');
         }, 1200);
 
-      }, 2500); // Exactly 2.5 seconds loading time
+      }, 2500); // 2.5 seconds loading time
     });
 
     // 2. MOUSE CURSOR SPOTLIGHT TRACKING
@@ -972,7 +981,28 @@
       cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // 3. 3D CARD TILT EFFECT (HIGH FPS)
+    // 3. LONG-PRESS / BOUNCEBACK EFFECT FOR PROFILE CARD ONLY
+    const profileCard = document.getElementById('profileCard');
+
+    function startPress() {
+      profileCard.classList.add('pressed');
+    }
+
+    function endPress() {
+      profileCard.classList.remove('pressed');
+    }
+
+    // Mouse events
+    profileCard.addEventListener('mousedown', startPress);
+    profileCard.addEventListener('mouseup', endPress);
+    profileCard.addEventListener('mouseleave', endPress);
+
+    // Touch events for mobile phones
+    profileCard.addEventListener('touchstart', startPress);
+    profileCard.addEventListener('touchend', endPress);
+    profileCard.addEventListener('touchcancel', endPress);
+
+    // 4. 3D CARD TILT EFFECT (RETAINED ONLY FOR MILESTONES & ACHIEVEMENTS)
     const tiltCards = document.querySelectorAll('.tilt-card');
     tiltCards.forEach(card => {
       card.addEventListener('mousemove', (e) => {
@@ -993,7 +1023,7 @@
       });
     });
 
-    // 4. THEME CONTROLLER & GEAR ANIMATION
+    // 5. THEME CONTROLLER & GEAR ANIMATION
     function triggerGearSpin() {
       const gear = document.getElementById('gearBtn');
       gear.classList.remove('spin');
@@ -1027,7 +1057,7 @@
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) setTheme(savedTheme);
 
-    // 5. HIGH PERFORMANCE MATRIX RAIN
+    // 6. HIGH PERFORMANCE MATRIX RAIN
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
 
@@ -1061,9 +1091,9 @@
         drops[i]++;
       }
     }
-    setInterval(drawMatrix, 33); // Smooth 30FPS background loop to preserve main thread performance
+    setInterval(drawMatrix, 33);
 
-    // 6. MODAL INTERACTION
+    // 7. MODAL INTERACTION
     function openModal(imgSrc, title, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
